@@ -1,0 +1,35 @@
+ <style>
+ .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    min-width: 80vh;
+    flex-direction: column;
+  }
+  .main{
+    font-size: 25px;
+    padding-bottom: 2px;
+    font-weight: 700;
+  }
+ .subtext{
+  font-size: 12px;
+  border-bottom: 2px solid black
+}
+
+ </style>
+ <div class="page">
+<section>
+  <h1>Things to do</h1>
+</section>
+<ul>
+  <%= for item <- @items do %>
+
+    <%= live_redirect to: Routes.live_path(@socket, AppWeb.Live.Task, group_id: item.id) do %>
+      <div class="main"><%= item.name %> </div>
+       <div class="subtext"> <%= item.completed %> of <%= item.total %> completed. </div>
+    <%= end %>
+
+  <% end %>
+</ul>
+</div>

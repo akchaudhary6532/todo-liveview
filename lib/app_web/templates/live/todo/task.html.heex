@@ -1,0 +1,66 @@
+<style>
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vh;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .subtext {
+    font-size: 20px;
+    padding: 20px;
+    border-bottom: 2px solid black;
+  }
+
+  .locked {
+    background-color: grey;
+  }
+
+  .incomplete {
+    background-color: white;
+  }
+
+  .completed  {
+    background-color: green;
+  }
+
+  .container {
+    flex-direction: row;
+    display: inline-flex;
+  }
+
+  .square {
+    height: 15px;
+    width: 15px;
+    border: 2px solid;
+    border-color: grey;
+    padding: 4px;
+    align-self: center;
+    display: inline-flex;
+    margin-right: 10px;
+  }
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-self: center;
+    background-color: 'red';
+  }
+</style>
+<div class="page">
+  <section>
+    <div class="heading">
+      <h1><%= @items.group.name %></h1>
+      <%= live_redirect to: Routes.live_path(@socket, AppWeb.Live.Todo), replace: true do %>Groups <%= end %>
+    </div>
+  </section>
+
+  <%= for task <- @items.tasks do %>
+       <%= live_patch to: Routes.live_path(@socket, AppWeb.Live.Task, [{:group_id, @items.group.id}, {route(task), task.id}] ) do
+          render "task_component.html", task: task
+       end%>
+  <% end %>
+</div>
