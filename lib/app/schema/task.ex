@@ -36,7 +36,7 @@ defmodule App.Schema.Task do
   def new(attrs), do: changeset(%__MODULE__{}, attrs)
 
   @spec changeset(Ecto.Schema.t() | t(), params()) :: Ecto.Changeset.t()
-  def changeset(%__MODULE__{} = struct, attrs) do
+  def changeset(struct, attrs) do
     struct
     |> cast(attrs, @fields)
     |> validate_required(@required)
@@ -45,6 +45,7 @@ defmodule App.Schema.Task do
     |> ensure_child_is_not_self()
   end
 
+  @spec ensure_child_is_not_self(Ecto.Schema.t()) :: Ecto.Schema.t()
   defp ensure_child_is_not_self(
          %Ecto.Changeset{valid?: true, data: %{id: id}, changes: %{child_task_id: id}} = changeset
        )

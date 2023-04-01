@@ -9,7 +9,7 @@ defmodule AppWeb.Live.TodoView do
   def get_task_type(%{completed: false}), do: @incomplete
   def get_task_type(%{completed: true}), do: @completed
 
-  def route(%{locked: true}), do: nil
+  def route(%{locked: true}), do: :locked
   def route(%{completed: false}), do: :set
   def route(%{completed: true}), do: :unset
 end

@@ -19,8 +19,8 @@ defmodule App.Schema.Group do
   @spec new(t) :: Ecto.Changeset.t()
   def new(attrs), do: changeset(%__MODULE__{}, attrs)
 
-  @spec changeset(Ecto.Schema.t(), t()) :: Ecto.Changeset.t()
-  def changeset(%__MODULE__{} = struct, attrs) do
+  @spec changeset(Ecto.Schema.t() | t(), t()) :: Ecto.Changeset.t()
+  def changeset(struct, attrs) do
     struct
     |> cast(attrs, @fields)
     |> validate_required(@fields)
